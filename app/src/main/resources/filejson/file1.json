@@ -1,0 +1,12 @@
+{
+  "name": [
+    "name", "manh"
+  ],
+  "hello": {
+    "text": "name11",
+    "number": 123
+  },
+  "home": {
+    "text": "nametext"
+  }
+}

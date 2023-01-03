@@ -1,0 +1,12 @@
+{
+  "name": [
+    "name", "notResource"
+  ],
+  "hello": {
+    "text": "notResource",
+    "number": 123
+  },
+  "home": {
+    "text": "nametext"
+  }
+}
