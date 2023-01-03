@@ -1,0 +1,2 @@
+file1.json          : [notResource, ["123","345",{"rert":[{"text":"child"}]}], child, nametext]
+file2.json          : [notResource2, nametext2]

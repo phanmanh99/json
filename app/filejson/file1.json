@@ -8,5 +8,16 @@
   },
   "home": {
     "text": "nametext"
-  }
+  },
+  "text": [
+    "123",
+    "345",
+    {
+      "rert": [
+        {
+          "text": "child"
+        }
+      ]
+    }
+  ]
 }

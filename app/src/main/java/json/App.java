@@ -14,14 +14,24 @@ public class App {
    * @param isFileInResource
    */
   public static void main(String[] args) {
-    if(args.length != 4) {
+    String fileName;
+    String keyCheck;
+    String folderFileJson;
+    Boolean isFolerInResource;
+
+    if (args.length == 4) {
       System.out.println("param number is not correct");
-      return;
+      fileName = args[0];
+      keyCheck = args[1];
+      folderFileJson = args[2];
+      isFolerInResource = Boolean.valueOf(args[3]);
+    } else {
+      fileName = "check.txt";
+      keyCheck = "text";
+      folderFileJson = "filejson";
+      isFolerInResource = false;
     }
-    String fileName = args[0];
-    String keyCheck = args[1];
-    String folderFileJson = args[2];
-    Boolean isFolerInResource = Boolean.valueOf(args[3]);
+
     FileJsonResource fileJsonResource = new FileJsonResource(folderFileJson, isFolerInResource);
     File fileSave = new File(fileName);
 

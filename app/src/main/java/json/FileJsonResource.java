@@ -16,6 +16,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class FileJsonResource {
@@ -94,18 +96,32 @@ public class FileJsonResource {
     return jsonObjects;
   }
 
-  protected void printValue(JSONObject jsonObject, List<String> values, String keyCheck) {
+  protected void printJsonObjectValue(JSONObject jsonObject, List<String> values, String keyCheck) {
     Iterator<String> keys = jsonObject.keys();
     while (keys.hasNext()) {
       String key = keys.next();
       if (key.equals(keyCheck)) {
-        values.add(jsonObject.getString(key));
+        values.add(jsonObject.get(key).toString());
+      }
+      if (jsonObject.get(key) instanceof String) {
+        continue;
       }
       try {
-        printValue(jsonObject.getJSONObject(key), values, keyCheck);
+        if (jsonObject.get(key) instanceof JSONObject) this.printJsonObjectValue(jsonObject.getJSONObject(key), values, keyCheck);
+        if (jsonObject.get(key) instanceof JSONArray) this.printJsonArrayValue(jsonObject.getJSONArray(key), values, keyCheck);
       } catch (Exception e) {
       }
     }
+  }
+
+  protected void printJsonArrayValue(JSONArray jsonArray, List<String> values, String keyCheck) {
+    jsonArray.forEach(object -> {
+      try {
+        if (object instanceof JSONObject) this.printJsonObjectValue((JSONObject) object, values, keyCheck);
+        if (object instanceof JSONArray) this.printJsonArrayValue((JSONArray) object, values, keyCheck);
+      } catch (Exception e) {
+      }
+    });
   }
 
   public String getPathFolder() {
@@ -125,7 +141,7 @@ public class FileJsonResource {
     jsonObjects.forEach(
         (file, jsonObject) -> {
           List<String> values = new ArrayList<>();
-          this.printValue(jsonObject, values, keyCheck);
+          this.printJsonObjectValue(jsonObject, values, keyCheck);
           valueFiles.put(file, values);
         });
     return valueFiles;
